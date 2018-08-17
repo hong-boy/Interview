@@ -1,27 +1,49 @@
-## 自定义事件注册方式
-* 需求：
-```  
-1 实现诸如v-bind:[EVENT_NAME] 功能，例如：v-bind:click="handler4Click"代表为当前元素绑定click事件，事件句柄为handler4Click
-2 可以为指令设置作用域
-```
-* 用法：
-```
-DOM结构:  
-<div id="test">
-    <div v-bind:click="test">
-        测试单击
-    </div>
-    <div v-bind:click="test">
-        测试单击2
-    </div>
-    <div v-bind:click="test">
-        测试单击3
-    </div>
-    <div v-bind:click="test">
-        测试单击4
-    </div>
-</div>
+题目：实现一套自制的事件模型
 
-JS注册方式：
-directive("v-bind:click", "#test"); // v-bind:click指令只对#test元素内的子元素生效
+完成事件：50分钟内
+
+描述：我们在给dom绑定事件的时候，如果子元素过多使用如下方式绑定会有较大性能损耗，希望通过自制事件模型来模拟整个事件机制，达到一个页面一种类型的事件只需要注册事件一次效果。
+
+```
+function test(){
+    console.log("hello");
+}
+```
+
+修改前的低效的方式注册事件
+
+```
+<div id="test" style="border: 1px red solid;">
+ <div onclick="test()">
+  测试单击
+ </div>
+ <div onclick="test()">
+  测试单击2
+ </div>
+ <div onclick="test()">
+  测试单击3
+ </div>
+ <div onclick="test()">
+  测试单击4
+ </div>
+</div>
+```
+
+使用自制事件注册方式
+
+```
+<div id="test" style="border: 1px red solid;">
+ <div ngclick="test">
+  测试单击
+ </div>
+ <div ngclick="test">
+  测试单击2
+ </div>
+ <div ngclick="test">
+  测试单击3
+ </div>
+ <div ngclick="test">
+  测试单击4
+ </div>
+</div>
 ```

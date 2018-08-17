@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Vue</title>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<div id="app">
+    <img src="https://vuejs.org/images/logo.png" alt="Vue logo">
+    <!--关键点1：使用v-html -->
+    <h1 v-html="proxy4greeting"></h1>
+    <input type="text" v-model="highlightText" placeholder="输入想要高亮的文字"/>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            greeting: 'Welcome to your Vue.js app!',
+            highlightText: 'app'
+        },
+        // 关键点2：使用computed属性
+        computed: {
+            proxy4greeting(){
+                return this.highlight(this.greeting, this.highlightText);
+            }
+        },
+        methods: {
+            // 关键点3：实现highlight函数
+            highlight(text, highlightText) {
+                // 关键点4：正则表达式编写
+                return text.replace(new RegExp(`${highlightText}`, 'g'), `<span style="color:red">${highlightText}</span>`)
+            }
+        }
+    })
+</script>
+</body>
+</html>

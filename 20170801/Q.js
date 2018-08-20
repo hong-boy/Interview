@@ -1,10 +1,14 @@
 var CustomEvent = (function () {
     var listeners = {};
+    function clean(name){
+        return name.replace(/^ng/, '');
+    }
     // 传入要处理的元素
-    function init(elem){
-        elem.addEventListener('click', function (e) {
+    function init(elem, type){
+        var eventName = clean(type);
+        elem.addEventListener(eventName, function (e) {
             if(e.target !== elem){
-                var name = e.target.getAttribute('ngclick');
+                var name = e.target.getAttribute(type);
                 typeof listeners[name] === 'function' && listeners[name](e);
             }
         })
@@ -21,5 +25,5 @@ var CustomEvent = (function () {
     };
 })();
 
-CustomEvent.init(document.querySelector('#test'))
+CustomEvent.init(document.querySelector('#test'), 'ngclick')
 CustomEvent.register('test', function(){console.log('hello there')})
